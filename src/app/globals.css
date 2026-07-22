@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────
+   CIDE — Design Tokens
+   Paleta: Futurismo Orgánico · Institucional · Contemplativo
+   ──────────────────────────────────────────────────────────── */
+:root {
+  /* Core palette */
+  --background:        #FDFCFB;   /* blanco hueso cálido */
+  --surface:           #F5F2EE;   /* superficie ligeramente más oscura */
+  --text:              #1A1A1A;   /* negro suave, alto contraste */
+  --text-muted:        #5C5248;   /* marrón cálido para texto secundario */
+
+  /* Primary — terracota/marrón extraído del logo */
+  --primary:           #6B4226;   /* marrón terracota oscuro */
+  --primary-light:     #8B5C3A;   /* versión más clara */
+  --primary-pale:      #C4956A;   /* versión pálida para acentos sutiles */
+
+  /* Secondary / Accent */
+  --accent:            #3D5A4F;   /* verde musgo oscuro: tierra + espiritualidad */
+  --accent-light:      #5C7A6F;
+
+  /* Borders */
+  --border:            rgba(106, 66, 38, 0.15);
+  --border-strong:     rgba(106, 66, 38, 0.35);
+
+  /* Overlay glassmorphism */
+  --glass-bg:          rgba(253, 252, 251, 0.85);
+  --glass-border:      rgba(106, 66, 38, 0.12);
+}
+
+/* ────────────────────────────────────────────────────────────
+   Tailwind Theme Bridge (v4)
+   ──────────────────────────────────────────────────────────── */
+@theme inline {
+  --color-background:     var(--background);
+  --color-surface:        var(--surface);
+  --color-text:           var(--text);
+  --color-text-muted:     var(--text-muted);
+  --color-primary:        var(--primary);
+  --color-primary-light:  var(--primary-light);
+  --color-primary-pale:   var(--primary-pale);
+  --color-accent:         var(--accent);
+  --color-accent-light:   var(--accent-light);
+  --color-border:         var(--border);
+  /* Scala Sans como fuente sans base (reemplaza Tailwind default) */
+  --font-sans:            var(--font-scala), ui-sans-serif, system-ui, sans-serif;
+  /* 7Seconds como clase display/script */
+  --font-display:         var(--font-7seconds), ui-sans-serif, sans-serif;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Base
+   ──────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-scala), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Fluid Typography Scale
+   ──────────────────────────────────────────────────────────── */
+
+/* Hero — título principal contemplativo */
+.heading-hero {
+  font-family: var(--font-scala), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.875rem, 3.5vw + 0.75rem, 4rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+}
+
+/* Section heading */
+.heading-section {
+  font-family: var(--font-scala), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.75rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+}
+
+/* Subtitle / eyebrow */
+.text-eyebrow {
+  font-family: var(--font-scala), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(0.6875rem, 0.5vw + 0.5rem, 0.8125rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Body lead */
+.text-lead {
+  font-family: var(--font-scala), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Hero Background — Breathing / Pulsation Animation
+   Simula una 'respiración estática' pausada sin sobrecargar el DOM.
+   ──────────────────────────────────────────────────────────── */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1)    translateY(0px);
+    opacity: 0.15;
+  }
+  30% {
+    opacity: 0.19;
+  }
+  50% {
+    transform: scale(1.025) translateY(-4px);
+    opacity: 0.22;
+  }
+  70% {
+    opacity: 0.17;
+  }
+}
+
+.animate-breathe {
+  animation: breathe 10s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ────────────────────────────────────────────────────────────
+   Horizontal Rule — ornamental
+   ──────────────────────────────────────────────────────────── */
+.rule-ornamental {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary-pale);
+}
+.rule-ornamental::before,
+.rule-ornamental::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--primary-pale),
+    transparent
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+   Utility: subtle vignette overlay for hero
+   ──────────────────────────────────────────────────────────── */
+.hero-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(26, 20, 14, 0.18) 100%
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+   Logo responsive sizing
+   ──────────────────────────────────────────────────────────── */
+.logo-img { max-height: 55px; }
+
+@media (min-width: 768px) {
+  .logo-img { max-height: 70px; }
+}
