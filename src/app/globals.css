@@ -179,3 +179,34 @@ body {
 @media (min-width: 768px) {
   .logo-img { max-height: 70px; }
 }
+
+/* ────────────────────────────────────────────────────────────
+   Sound-bowl animation — brillo pulsante que da protagonismo
+   a los detalles del cuenco (puntitos y varilla)
+   ──────────────────────────────────────────────────────────── */
+@keyframes bowl-glow {
+  0%, 100% {
+    transform: scale(1.0) rotate(0deg);
+    filter: brightness(0.95) saturate(0.9);
+  }
+  45% {
+    transform: scale(1.035) rotate(0.6deg);
+    filter: brightness(1.18) saturate(1.15);
+  }
+}
+
+.bowl-bg-anim {
+  animation: bowl-glow 8s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+/* Feature card hover */
+.feature-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  cursor: default;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(106, 66, 38, 0.1);
+  border-color: var(--primary-pale) !important;
+}
